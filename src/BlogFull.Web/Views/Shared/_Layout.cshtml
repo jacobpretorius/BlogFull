@@ -1,0 +1,40 @@
+﻿@model BlogFull.Web.Models.ViewModels.Base.BasePageViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<!--
+    Powered by the Open Source BlogFull: https://github.com/jacobpretorius/BlogFull
+
+    Released under GNU GPL v3.0. You can find the full license here https://github.com/jacobpretorius/BlogFull/blob/master/LICENSE
+    Copyright and license notice must be left here. 
+-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="@(Model.DontIndexPage ? "noindex, follow" : "index, follow")">
+    <meta name="description" content="@Model.MetaDescription">
+    <link href="/Content/IMG/favicon.ico" rel="icon" type="image/x-icon" />
+    <title>@Model.WindowTitle</title>
+    <link href="~/Content/CSS/blog_style.css" rel="stylesheet" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <header>
+        <h1><a href="/blog">@Model.BlogName</a></h1>
+        <em>@Model.TagLine</em>
+    </header>
+
+    <div class="body-container">
+        @RenderBody()
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="admin-links">
+            <a href="/submit">new post</a> |
+            <a href="/admin/settings">settings</a> |
+            <a href="/admin/logout">logout</a>
+        </div>
+    }
+</body>
+</html>

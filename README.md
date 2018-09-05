@@ -12,6 +12,7 @@ An ASP.NET 4.7 MVC markdown blog framework built for speed and getting things ri
 * Built in drag-drop image upload and embed.
 * Edit and post in markdown, render as html.
 * No database, uses flat file xml storage.
+* Automatically generates a sitemap.xml.
 
 Proof:
 
@@ -23,8 +24,9 @@ Proof:
 1. Clone repo.
 2. Open with Visual Studio, edit web.config variables.
 3. Place whatever content you want in the /Home view, or delete the controller for no Home page.
-4. Build and publish to your website.
-5. Send me the link on [Twitter](https://twitter.com/jacob_pretorius "Jacob's Twitter") so I can share it.
+4. Make sure to enable directory write permissions on your server/hosting.
+5. Build and publish to your website.
+6. Send me the link on [Twitter](https://twitter.com/jacob_pretorius "Jacob's Twitter") so I can share it.
 
 
 ## Usage Instructions

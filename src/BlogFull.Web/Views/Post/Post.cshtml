@@ -1,0 +1,69 @@
+﻿@using System.Configuration
+@model BlogFull.Web.Models.ViewModels.PostPageViewModel
+
+<div class="post-header">
+    <h2>@Model.Title</h2>
+    <p>@Model.PostedTime.ToString("dd MMM yyyy") | Estimated read time about @Model.ReadTime minutes</p>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Categories))
+    {
+        <div class="post-header-categories">
+            <i>
+                @foreach (var category in Model.Categories.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    <a class="post__catergory" href="/blog/category/@category">(@category)</a>
+                }
+            </i>
+        </div>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        //admin layout settings area. The delete will need confirmation popup
+        <ul>
+            <li>@Html.ActionLink("edit post", "Edit", "Submit", new { year = Model.PostedTime.Year, slug = Model.Slug }, null)</li>
+            <li>@Html.ActionLink("delete post", "DeletePost", "Submit", new { year = Model.PostedTime.Year, slug = Model.Slug }, new { onclick = "return confirm('Are you sure?')" })</li>
+        </ul>
+    }
+</div>
+
+<div class="post-body">
+    <p>@Html.Raw(Model.BodyHtml)</p>
+</div>
+
+@*lets be friends with search engines*@
+<script type="application/ld+json">
+    {
+        "@@context": "http://schema.org",
+        "@@type": "BlogPosting",
+        "mainEntityOfPage": {
+            "@@type": "WebPage",
+            "@@id": "@Request.Url.AbsoluteUri"
+        },
+        "headline": "@Model.Title",        
+        "datePublished": "@(Model.PostedTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssK"))",        
+        "author": {
+            "@@type": "Person",
+            "name": "@Model.AuthorName"
+        },       
+        "description": "@Model.MetaDescription"
+    }
+</script>
+
+<div class="post-social">
+    <div id="disqus_thread"></div>
+</div>
+
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = "https://@(ConfigurationManager.AppSettings["site-url"])/post-redirect/?s=@Model.Slug&y=@Model.PostedTime.Year";
+        this.page.identifier = "@Model.PostedTime.Ticks";
+    };
+
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://@(ConfigurationManager.AppSettings["disqus-site-name"]).disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>

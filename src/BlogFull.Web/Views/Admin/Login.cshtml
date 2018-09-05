@@ -1,0 +1,38 @@
+﻿@using System.Configuration
+@model BlogFull.Web.Models.ViewModels.LoginPageViewModel
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="login-form">
+        @using (Html.BeginForm("SubmitLogin", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "submit-edit__form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            if (!ViewData.ModelState.IsValid)
+            {
+                @Html.ValidationMessage("Login")
+            }
+
+            <h3>Login</h3>
+            <span>
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "submit-edit__input", required = true, autocomplete = "username" })
+            </span>
+            <span>
+                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", @class = "submit-edit__input", required = true, autocomplete = "password", type="password" })
+            </span>
+            <span>
+                @Html.LabelFor(m => m.RememberMe)
+                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "submit-edit__checkbox pull-right" })
+            </span>
+            <br />
+            <br />
+            <div class="g-recaptcha" data-sitekey="@ConfigurationManager.AppSettings["recaptcha-site-key"]"></div>
+            <hr />
+            <input type="submit" class="submit-edit__submit pull-right" value="Log in" />
+        }
+    </section>
+}
+else
+{
+    <h3>You are already signed in @User.Identity.Name</h3>
+}

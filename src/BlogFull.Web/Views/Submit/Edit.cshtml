@@ -1,0 +1,50 @@
+﻿@model BlogFull.Web.Models.ViewModels.EditPostPageViewModel
+
+<div class="notification-bar" id="notification">
+    <p id="notificationText" class="notification-bar__message"></p>
+</div>
+
+@using (Html.BeginForm("SubmitEdit", "Submit", FormMethod.Post, new { enctype = "multipart/form-data", @class = "submit-edit__form" }))
+{
+    @Html.AntiForgeryToken()
+
+    //this is important
+    @Html.HiddenFor(m => m.Slug);
+    @Html.HiddenFor(m => m.PostedTime);
+
+    <h3>Edit Post</h3>
+    <span>
+        @Html.LabelFor(m => m.Title, "Title")
+        @Html.TextBoxFor(m => m.Title, new { placeholder = "", @class = "submit-edit__input", required = true, autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.BodyMarkdown, "Body")
+        @Html.TextAreaFor(m => m.BodyMarkdown, 10, 10, new { placeholder = "Body (Markdown Supported)", @class = "submit-edit__area", required = true, autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.Categories, "Categories")
+        @Html.TextBoxFor(m => m.Categories, new { placeholder = "Categories (Comma Separated)", @class = "submit-edit__input", autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.MetaDescPost, "Post Extract")
+        @Html.TextBoxFor(m => m.MetaDescPost, new { placeholder = "", @class = "submit-edit__input", required = true, autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.DontIndexPost, "Hide From Search Engines")
+        @Html.CheckBoxFor(m => m.DontIndexPost, new { @class = "submit-edit__checkbox pull-right" })
+    </span>
+    <hr />
+    <input id="btnSubmit" class="submit-edit__submit pull-right" type="submit" value="Save" />
+}
+
+<div id="drop-area">
+    <form class="image-submit-form">
+        <p>Drop images here</p>
+        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+        <label class="button" for="fileElem">Select files</label>
+    </form>
+    <progress id="progress-bar" max=100 value=0></progress>
+    <div id="gallery" />
+</div>
+
+<script src="~/Content/JS/image_upload.js" async></script>

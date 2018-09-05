@@ -1,0 +1,93 @@
+﻿@model BlogFull.Web.Models.ViewModels.BlogPageViewModel
+
+@{
+    if (Model.BlogPosts?.Count() > 0)
+    {
+        foreach (var post in Model.BlogPosts)
+        {
+            <div class="post-card">
+                <h2>
+                    <a href="/post/@post.PostedTime.Year/@post.Slug">@post.Title</a>
+                </h2>
+                <i>@post.PostedTime.ToString("dd MMM yyyy")</i>
+                <div class="post-summary">
+                    <p>@Html.Raw(post.MetaDescPost)</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Sorry, there are no results to show.</p>
+    }
+
+    //Paging
+    if (string.IsNullOrWhiteSpace(Model.ActiveCategory))
+    {
+        //this is a direct blog page
+        //should we show paging section
+        if (Model.Page > 0 || Model?.BlogPosts?.Count() == 10)
+        {
+            <div class="paging-container">
+                @if (Model.Page > 0)
+                {
+                    //show back paging button
+                    if (Model.Page - 1 == 0)
+                    {
+                        <a href="/blog/" class="blog-link-previous">Previous</a>
+                    }
+                    else
+                    {
+                        <a href="/blog/@(Model.Page-1)" class="blog-link-previous">Previous</a>
+                    }
+                }
+
+                @if (Model?.BlogPosts?.Count() == 10)
+                {
+                    //show next button
+                    <a href="/blog/@(Model.Page+1)" class="blog-link-next">Next</a>
+                }
+            </div>
+        }
+    }
+    else
+    {
+        //this is a category page
+        //should we show paging section
+        if (Model.Page > 0 || Model?.BlogPosts?.Count() == 10)
+        {
+            <div class="paging-container">
+                @if (Model.Page > 0)
+                {
+                    //show back paging button
+                    if (Model.Page - 1 == 0)
+                     {
+                         <a href="/blog/category/@Model.ActiveCategory/" class="blog-link-previous">Previous</a>
+                     }
+                     else
+                     {
+                         <a href="/blog/category/@Model.ActiveCategory/@(Model.Page - 1)" class="blog-link-previous">Previous</a>
+                     }
+                }
+                
+                @if (Model?.BlogPosts?.Count() == 10)
+                {
+                    //show next button
+                    <a href="/blog/category/@Model.ActiveCategory/@(Model.Page+1)" class="blog-link-next">Next</a>
+                }
+            </div>
+        }
+    }
+
+    //categories
+    if (Model.Categories?.Count() > 0)
+    {
+        <div class="blog-category-list">
+            <h3 class="category-list__heading">Categories</h3>
+            @foreach (var category in Model.Categories)
+            {
+                <a href="/blog/category/@category" class="category-list__link">@category</a>
+            }
+        </div>
+    }
+}

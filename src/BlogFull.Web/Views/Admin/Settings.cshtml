@@ -1,0 +1,30 @@
+﻿@model BlogFull.Web.Models.ViewModels.SettingsPageViewModel
+
+@using (Html.BeginForm("SubmitSettings", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "submit-edit__form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Admin Settings</h3>
+    <span>
+        @Html.LabelFor(m => m.BlogName, "Blog Name")
+        @Html.TextBoxFor(m => m.BlogName, new { placeholder = "", @class = "submit-edit__input", required = true, autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.AuthorName, "Author Name")
+        @Html.TextBoxFor(m => m.AuthorName, new { placeholder = "", @class = "submit-edit__input", required = true, autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.BlogName, "Tag Line")
+        @Html.TextBoxFor(m => m.TagLine, new { placeholder = "", @class = "submit-edit__input", required = true, autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.DefaultWindowTitle, "Default Window Title")
+        @Html.TextBoxFor(m => m.DefaultWindowTitle, new { placeholder = "", @class = "submit-edit__input", required = true, autocomplete = "off" })
+    </span>
+    <span>
+        @Html.LabelFor(m => m.DefaultMetaDescription, "Default Meta Description")
+        @Html.TextAreaFor(m => m.DefaultMetaDescription, 5, 10, new { placeholder = "", @class = "submit-edit__area", required = true, autocomplete = "off" })
+    </span>
+    <input id="btnSubmit" class="submit-edit__submit pull-right" type="submit" value="Save" />
+}
+
