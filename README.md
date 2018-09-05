@@ -32,10 +32,10 @@ Proof:
 ## Usage Instructions
 1. Navigate to /admin and login with the username and password you set.
 2. Start blogging.
-2.1. Click on an uploaded image to copy the markdown link to clipboard.
+3. Click on an uploaded image to copy the markdown link to clipboard.
 
 # With Thanks
 * Initial base (sort of, mostly the xml storing and parsing): [MiniBlog](https://github.com/madskristensen/MiniBlog).
 * Markdown parsing: [CommonMark.NET](https://github.com/Knagis/CommonMark.NET).
-* Drag drop image upload in pure JS based on the work by [Hoe Zim](https://codepen.io/joezimjs/pen/yPWQbd).
+* Drag drop image upload in pure JS based on the work by [Joe Zim](https://codepen.io/joezimjs/pen/yPWQbd).
 * Frontent Beautification: Jean-Paul "JP" Kleynhans.
