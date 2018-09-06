@@ -39,3 +39,5 @@ Proof:
 * Markdown parsing: [CommonMark.NET](https://github.com/Knagis/CommonMark.NET).
 * Drag drop image upload in pure JS based on the work by [Joe Zim](https://codepen.io/joezimjs/pen/yPWQbd).
 * Frontent Beautification: Jean-Paul "JP" Kleynhans.
+
+You can read more about BlogFull and see it running [over on my site](https://jcpretorius.com/post/2018/why-create-blogfull).
