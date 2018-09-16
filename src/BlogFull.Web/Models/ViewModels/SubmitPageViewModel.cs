@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using BlogFull.Web.Models.ViewModels.Base;
 
 namespace BlogFull.Web.Models.ViewModels
@@ -11,6 +12,7 @@ namespace BlogFull.Web.Models.ViewModels
         [Required(ErrorMessage = "*")]
         public string Title { get; set; }
 
+        [AllowHtml]
         [Required(ErrorMessage = "*")]
         public string BodyText { get; set; }
 
@@ -20,6 +22,7 @@ namespace BlogFull.Web.Models.ViewModels
         public bool DontIndexNewPost { get; set; }
 
         //also shown on the /blog view as summary
+        [AllowHtml]
         [Required(ErrorMessage = "*")]
         public string MetaDescNewPost { get; set; }
     }
