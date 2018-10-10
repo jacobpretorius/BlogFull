@@ -38,7 +38,7 @@ namespace BlogFull.Web.Controllers
                 return View("Post", currentPage);
             }
 
-            return HttpNotFound();
+            return RedirectToAction("NotFound", "Error");
         }
 
         //in a perfect world we wouldn't need this. Unfortunately the way Disqus handles urls sucks

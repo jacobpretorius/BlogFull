@@ -32,7 +32,7 @@ namespace BlogFull.Web.Business.Cache
         /// <returns>Post if found in memory or disk, else returns null</returns>
         public static Post GetPost(int year, string slug)
         {
-            if (_memoryCache?.Count(w => w.Slug == slug && w.PostedTime.Year == year) > 0)
+            if (_memoryCache?.Count(w => w?.Slug == slug && w?.PostedTime.Year == year) > 0)
             {
                 //cache hit
                 return _memoryCache?.FirstOrDefault(w => w.Slug == slug && w.PostedTime.Year == year);
@@ -40,9 +40,13 @@ namespace BlogFull.Web.Business.Cache
 
             //cache miss
             var missed = StorageHelper.ReadPost(year, slug);
-            _memoryCache?.Add(missed);
+            if (missed != null)
+            {
+                _memoryCache?.Add(missed);
+                return missed;
+            }
 
-            return missed;
+            return null;
         }
 
 		/// <summary>
