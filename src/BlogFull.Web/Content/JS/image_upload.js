@@ -160,3 +160,12 @@ function notifyError() {
     bar.offsetWidth;
     bar.classList.add("toggle-show");
 }
+
+//prevent accidental navigation away on post/edit pages
+window.onbeforeunload = function() {
+    return "Are you sure you want to go?";
+};
+
+function SubmitPage() {
+    window.onbeforeunload = null;
+}
